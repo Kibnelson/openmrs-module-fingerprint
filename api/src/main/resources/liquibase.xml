@@ -1,0 +1,758 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                  http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+    <!--
+        See http://www.liquibase.org/manual/home#available_database_refactorings
+        for a list of supported elements and attributes
+    -->
+
+
+    <changeSet id="peerObs-2016-05-04-2:40" author="peer">
+
+        <preConditions onFail="MARK_RAN">
+
+            <not>
+
+                <tableExists tableName="peer_providers"/>
+            </not>
+
+            <dbms type="mysql"/>
+        </preConditions>
+
+        <comment>
+            Creating the peer_providers table
+
+
+        </comment>
+
+        <createTable tableName="peer_providers">
+
+
+            <column name="peer_providers_id"
+                    type="int(11)">
+
+                <constraints
+                        nullable="false"
+                        primaryKey="true"/>
+            </column>
+
+
+            <column
+                    name="fname"
+                    type="varchar(250)">
+                <constraints nullable="false"/>
+            </column>
+            <column
+                    name="lname"
+                    type="varchar(250)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column
+                    name="sname"
+                    type="varchar(250)">
+                <constraints nullable="true"/>
+            </column>
+
+
+            <column name="fingerprint" type="text">
+                <constraints nullable="true"/>
+            </column>
+
+
+            <column name="finger_name" type="text">
+                <constraints nullable="true"/>
+            </column>
+            <column name="uname" type="varchar(250)">
+                <constraints nullable="true"/>
+            </column>
+
+
+            <column name="pwd" type="varchar(250)">
+                <constraints nullable="true"/>
+            </column>
+
+
+
+            <column
+                    name="uuid"
+                    type="char(38)">
+
+                <constraints nullable="false"/>
+            </column>
+
+
+            <column name="voided" type="int(6)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="voided_by" type="int(11)">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="date_voided" type="datetime">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="void_reason" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="creator" type="int(11)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_created" type="datetime">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="date_changed" type="datetime">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="changed_by" type="int(11)">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+
+        <createIndex
+                indexName="uuid"
+                tableName="peer_providers">
+
+            <column name="uuid"/>
+        </createIndex>
+
+        <addAutoIncrement
+                columnDataType="int"
+                columnName="peer_providers_id"
+                tableName="peer_providers"/>
+
+
+        <update tableName="peer_providers">
+
+            <column
+                    name="uuid"
+                    valueNumeric="name-of-uuid-function"/>
+
+            <where>
+                uuid is null
+
+            </where>
+        </update>
+
+        <modifySql dbms="mysql">
+
+            <replace
+                    replace="name-of-uuid-function"
+                    with="UUID()"/>
+        </modifySql>
+    </changeSet>
+
+
+    <changeSet id="peerObs-2016-05-04-2:41" author="peer">
+
+        <preConditions onFail="MARK_RAN">
+
+            <not>
+
+                <tableExists tableName="peer_messages"/>
+            </not>
+
+            <dbms type="mysql"/>
+        </preConditions>
+
+        <comment>
+            Creating the peer_messages table
+
+
+        </comment>
+
+        <createTable tableName="peer_messages">
+
+
+            <column name="peer_messages_id"
+                    type="int(11)">
+
+                <constraints
+                        nullable="false"
+                        primaryKey="true"/>
+            </column>
+
+
+            <column
+                    name="patientsMessage"
+                    type="varchar(1000)">
+                <constraints nullable="false"/>
+            </column>
+            <column
+                    name="coughMonitorMessage"
+                    type="varchar(1000)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column
+                    name="patientsMessageMissed"
+                    type="varchar(1000)">
+                <constraints nullable="false"/>
+            </column>
+
+
+            <column
+                    name="uuid"
+                    type="char(38)">
+
+                <constraints nullable="false"/>
+            </column>
+
+
+            <column name="voided" type="int(6)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="voided_by" type="int(11)">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="date_voided" type="datetime">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="void_reason" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="creator" type="int(11)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_created" type="datetime">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="date_changed" type="datetime">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="changed_by" type="int(11)">
+                <constraints nullable="true"/>
+            </column>
+
+        </createTable>
+
+        <createIndex
+                indexName="uuid"
+                tableName="peer_messages">
+
+            <column name="uuid"/>
+        </createIndex>
+
+        <addAutoIncrement
+                columnDataType="int"
+                columnName="peer_messages_id"
+                tableName="peer_messages"/>
+
+
+        <update tableName="peer_messages">
+
+            <column
+                    name="uuid"
+                    valueNumeric="name-of-uuid-function"/>
+
+            <where>
+                uuid is null
+
+            </where>
+        </update>
+
+        <modifySql dbms="mysql">
+
+            <replace
+                    replace="name-of-uuid-function"
+                    with="UUID()"/>
+        </modifySql>
+    </changeSet>
+
+
+    <changeSet id="peerObs-2016-05-04-2:42" author="peer">
+
+        <preConditions onFail="MARK_RAN">
+
+            <not>
+
+                <tableExists tableName="peer_patient"/>
+            </not>
+
+            <dbms type="mysql"/>
+        </preConditions>
+
+        <comment>
+            Creating the peer_patient table
+
+
+        </comment>
+
+        <createTable tableName="peer_patient">
+
+
+            <column name="peer_patient_id"
+                    type="int(11)">
+
+                <constraints
+                        nullable="false"
+                        primaryKey="true"/>
+            </column>
+
+
+            <column
+                    name="firstName"
+                    type="varchar(250)">
+                <constraints nullable="false"/>
+            </column>
+            <column
+                    name="secondName"
+                    type="varchar(250)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="thirdName" type="varchar(250)">
+                <constraints nullable="true"/>
+            </column>
+
+            <column
+                    name="gender"
+                    type="varchar(250)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="dateOfBirth" type="datetime">
+                <constraints nullable="true"/>
+            </column>
+            <column name="dateOfEnrollment" type="datetime">
+                <constraints nullable="true"/>
+            </column>
+            <column name="dateOfNextEncounter" type="datetime">
+                <constraints nullable="true"/>
+            </column>
+
+            <column
+                    name="amrsID"
+                    type="varchar(250)">
+                <constraints nullable="true"/>
+            </column>
+            <column
+                    name="mtrhID"
+                    type="varchar(250)">
+                <constraints nullable="true"/>
+            </column>
+            <column
+                    name="phoneOneType"
+                    type="varchar(250)">
+                <constraints nullable="true"/>
+            </column>
+            <column
+                    name="phoneOne"
+                    type="varchar(250)">
+                <constraints nullable="true"/>
+            </column>
+            <column
+                    name="phoneTwoType"
+                    type="varchar(250)">
+                <constraints nullable="true"/>
+            </column>
+            <column
+                    name="phoneTwo"
+                    type="varchar(250)">
+                <constraints nullable="true"/>
+            </column>
+
+
+
+
+
+
+            <column name="fingerprint" type="text">
+                <constraints nullable="true"/>
+            </column>
+
+
+            <column name="fingerName" type="text">
+                <constraints nullable="true"/>
+            </column>
+
+            <column
+                    name="identificationPoint"
+                    type="varchar(250)">
+                <constraints nullable="true"/>
+            </column>
+
+            <column
+                    name="identificationPointValue"
+                    type="varchar(250)">
+                <constraints nullable="true"/>
+            </column>
+
+            <column
+                    name="nonAmpathPatient"
+                    type="varchar(250)">
+                <constraints nullable="true"/>
+            </column>
+
+
+            <column
+                    name="patientType"
+                    type="varchar(250)">
+                <constraints nullable="true"/>
+            </column>
+            <column
+                    name="patientTypeValue"
+                    type="varchar(250)">
+                <constraints nullable="true"/>
+            </column>
+            <column
+                    name="outpatientLocation"
+                    type="varchar(250)">
+                <constraints nullable="true"/>
+            </column>
+            <column
+                    name="outpatientLocationValue"
+                    type="varchar(250)">
+                <constraints nullable="true"/>
+            </column>
+
+
+            <column
+                    name="uuid"
+                    type="char(38)">
+
+                <constraints nullable="false"/>
+            </column>
+
+
+            <column name="voided" type="int(6)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="voided_by" type="int(11)">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="date_voided" type="datetime">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="void_reason" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="creator" type="int(11)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_created" type="datetime">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="date_changed" type="datetime">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="changed_by" type="int(11)">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+
+        <createIndex
+                indexName="uuid"
+                tableName="peer_patient">
+
+            <column name="uuid"/>
+        </createIndex>
+
+        <addAutoIncrement
+                columnDataType="int"
+                columnName="peer_patient_id"
+                tableName="peer_patient"/>
+
+
+
+        <update tableName="peer_patient">
+
+            <column
+                    name="uuid"
+                    valueNumeric="name-of-uuid-function"/>
+
+            <where>
+                uuid is null
+
+            </where>
+        </update>
+
+        <modifySql dbms="mysql">
+
+            <replace
+                    replace="name-of-uuid-function"
+                    with="UUID()"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet id="peerObs-2016-05-04-2:43" author="peer">
+
+        <preConditions onFail="MARK_RAN">
+
+            <not>
+
+                <tableExists tableName="peer_obs"/>
+            </not>
+
+            <dbms type="mysql"/>
+        </preConditions>
+
+        <comment>
+            Creating the peer_obs table
+
+
+        </comment>
+
+        <createTable tableName="peer_obs">
+
+
+            <column name="peer_obs_id"
+                    type="int(11)">
+
+                <constraints
+                        nullable="false"
+                        primaryKey="true"/>
+            </column>
+
+
+
+            <column name="dateOfNextEncounter" type="datetime">
+                <constraints nullable="true"/>
+            </column>
+            <column name="dateOfLastEncounter" type="datetime">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="dateOfNextPeerCall" type="datetime">
+                <constraints nullable="true"/>
+            </column>
+            <column
+                    name="phoneCallInitiator"
+                    type="varchar(250)">
+                <constraints nullable="true"/>
+            </column>
+            <column
+                    name="patientTypeOptions"
+                    type="varchar(250)">
+                <constraints nullable="true"/>
+            </column>
+            <column
+                    name="inPatientOption"
+                    type="varchar(250)">
+                <constraints nullable="true"/>
+            </column>
+            <column
+                    name="adherance"
+                    type="varchar(250)">
+                <constraints nullable="true"/>
+            </column>
+
+
+            <column name="deceased" type="datetime">
+                <constraints nullable="true"/>
+            </column>
+
+            <column
+                    name="lostToFollow"
+                    type="varchar(250)">
+                <constraints nullable="true"/>
+            </column>
+            <column
+                    name="comments"
+                    type="varchar(250)">
+                <constraints nullable="true"/>
+            </column>
+
+
+            <column
+                    name="currentHIVRegimen"
+                    type="varchar(250)">
+                <constraints nullable="true"/>
+            </column>
+            <column
+                    name="regimenOne"
+                    type="varchar(250)">
+                <constraints nullable="true"/>
+            </column>
+            <column
+                    name="regimenOneValue"
+                    type="varchar(250)">
+                <constraints nullable="true"/>
+            </column>
+            <column
+                    name="regimenTwo"
+                    type="varchar(250)">
+                <constraints nullable="true"/>
+            </column>
+            <column
+                    name="regimenTwoValue"
+                    type="varchar(250)">
+                <constraints nullable="true"/>
+            </column>
+            <column
+                    name="regimenThree"
+                    type="varchar(250)">
+                <constraints nullable="true"/>
+            </column>
+            <column
+                    name="regimenThreeValue"
+                    type="varchar(250)">
+                <constraints nullable="true"/>
+            </column>
+
+            <column
+                    name="regimenFour"
+                    type="varchar(250)">
+                <constraints nullable="true"/>
+            </column>
+            <column
+                    name="regimenFourValue"
+                    type="varchar(250)">
+                <constraints nullable="true"/>
+            </column>
+
+            <column
+                    name="tbTreatment"
+                    type="varchar(250)">
+                <constraints nullable="true"/>
+            </column>
+            <column
+                    name="pcp"
+                    type="varchar(250)">
+                <constraints nullable="true"/>
+            </column>
+            <column
+                    name="crypto"
+                    type="varchar(250)">
+                <constraints nullable="true"/>
+            </column>
+            <column
+                    name="otherOI"
+                    type="varchar(250)">
+                <constraints nullable="true"/>
+            </column>
+
+
+
+
+            <column
+                    name="providersId"
+                    type="char(38)">
+
+                <constraints nullable="true"/>
+            </column>
+
+
+            <column
+                    name="peerPatientsId"
+                    type="char(38)">
+
+                <constraints nullable="true"/>
+            </column>
+
+            <column
+
+                    name="timeStamp"
+            type="long">
+
+            <constraints nullable="true"/>
+        </column>
+        <column
+                    name="uuid"
+                    type="char(38)">
+
+                <constraints nullable="false"/>
+            </column>
+
+
+            <column name="voided" type="int(6)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="voided_by" type="int(11)">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="date_voided" type="datetime">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="void_reason" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="creator" type="int(11)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_created" type="datetime">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="date_changed" type="datetime">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="changed_by" type="int(11)">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+
+        <createIndex
+                indexName="uuid"
+                tableName="peer_obs">
+
+            <column name="uuid"/>
+        </createIndex>
+
+        <addAutoIncrement
+                columnDataType="int"
+                columnName="peer_obs_id"
+                tableName="peer_obs"/>
+
+
+        <addForeignKeyConstraint
+                baseColumnNames="providersId"
+                baseTableName="peer_obs"
+                constraintName="peerProvidersId_fk"
+                referencedColumnNames="uuid"
+                referencedTableName="peer_providers"/>
+
+        <addForeignKeyConstraint
+                baseColumnNames="peerPatientsId"
+                baseTableName="peer_obs"
+                constraintName="peerPatientsId_fk"
+                referencedColumnNames="uuid"
+                referencedTableName="peer_patient"/>
+
+        <update tableName="peer_obs">
+
+            <column
+                    name="uuid"
+                    valueNumeric="name-of-uuid-function"/>
+
+            <where>
+                uuid is null
+
+            </where>
+        </update>
+
+        <modifySql dbms="mysql">
+
+            <replace
+                    replace="name-of-uuid-function"
+                    with="UUID()"/>
+        </modifySql>
+    </changeSet>
+
+
+
+</databaseChangeLog>

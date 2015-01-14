@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+
+    <class name="org.openmrs.module.peer.PeerPatient"
+           table="peer_patient">
+
+
+        <cache usage="read-write"/>
+
+        <id name="id" type="int" column="peer_obs_id" unsaved-value="0">
+            <generator class="org.openmrs.api.db.hibernate.NativeIfNotAssignedIdentityGenerator"/>
+        </id>
+
+        <discriminator column="peer_patient_id" insert="false"/>
+        <property column="firstName" name="firstName" type="java.lang.String"/>
+        <property column="secondName" name="secondName" type="java.lang.String"/>
+
+        <property column="thirdName" name="thirdName" type="java.lang.String"/>
+        <property column="gender" name="gender" type="java.lang.String" not-null="false"/>
+        <property column="dateOfBirth" name="dateOfBirth" type="java.util.Date" />
+
+
+        <property column="fingerName" name="fingerName" type="text"/>
+        <property column="fingerprint" name="fingerprint" type="text"/>
+
+        <property column="phoneOneType" name="phoneOneType" type="java.lang.String"/>
+        <property column="phoneOne" name="phoneOne" type="java.lang.String"/>
+
+        <property column="phoneTwoType" name="phoneTwoType" type="java.lang.String"/>
+        <property column="phoneTwo" name="phoneTwo" type="java.lang.String"/>
+
+        <property column="amrsID" name="amrsID" type="java.lang.String"/>
+
+        <property column="mtrhID" name="mtrhID" type="java.lang.String"/>
+
+
+        <property column="dateOfEnrollment" name="dateOfEnrollment" type="java.util.Date" />
+
+
+
+        <property column="identificationPointValue" name="identificationPointValue" type="java.lang.String"/>
+
+
+        <property column="identificationPoint" name="identificationPoint" type="java.lang.String"/>
+
+
+        <property column="nonAmpathPatient" name="nonAmpathPatient" type="java.lang.String"/>
+
+
+
+        <property column="patientType" name="patientType" type="java.lang.String"/>
+        <property column="patientTypeValue" name="patientTypeValue" type="java.lang.String"/>
+
+        <property column="outpatientLocation" name="outpatientLocation" type="java.lang.String"/>
+        <property column="outpatientLocationValue" name="outpatientLocationValue" type="java.lang.String"/>
+
+
+
+
+
+
+        <many-to-one name="creator" class="org.openmrs.User" column="creator" not-null="true"/>
+
+        <property name="dateCreated" type="java.util.Date" column="date_created" not-null="true"/>
+
+        <property name="voided" type="boolean" not-null="true"/>
+
+        <many-to-one name="voidedBy" class="org.openmrs.User" column="voided_by"/>
+
+        <property name="dateVoided" type="java.util.Date" column="date_voided"/>
+
+        <property name="voidReason" type="java.lang.String" column="void_reason" length="255"/>
+
+        <many-to-one name="changedBy" class="org.openmrs.User" column="changed_by" />
+
+        <property name="dateChanged" type="java.util.Date" column="date_changed" length="19" />
+
+        <property name="uuid" type="string" length="38" not-null="true" unique="true"/>
+
+    </class>
+
+</hibernate-mapping>

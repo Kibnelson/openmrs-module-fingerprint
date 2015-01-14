@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+
+    <class name="org.openmrs.module.peer.PeerObs"
+           table="peer_obs">
+
+
+        <cache usage="read-write"/>
+
+        <id name="id" type="int" column="peer_obs_id" unsaved-value="0">
+            <generator class="org.openmrs.api.db.hibernate.NativeIfNotAssignedIdentityGenerator"/>
+        </id>
+
+        <discriminator column="peer_obs_id" insert="false"/>
+
+
+        <property column="phoneCallInitiator" name="phoneCallInitiator" type="java.lang.String"/>
+        <property column="inPatientOption" name="inPatientOption" type="java.lang.String"/>
+
+        <property column="patientTypeOptions" name="patientTypeOptions" type="java.lang.String"/>
+        <property column="adherance" name="adherance" type="java.lang.String"/>
+        <property column="dateOfLastEncounter" name="dateOfLastEncounter" type="java.util.Date" />
+        <property column="dateOfNextEncounter" name="dateOfNextEncounter" type="java.util.Date" />
+
+        <property column="dateOfNextPeerCall" name="dateOfNextPeerCall" type="java.util.Date" />
+
+
+
+
+        <property column="deceased" name="deceased" type="java.util.Date" />
+
+        <property column="lostToFollow" name="lostToFollow" type="java.lang.String" />
+
+
+        <property column="comments" name="comments" type="java.lang.String"/>
+
+
+
+
+        <property column="currentHIVRegimen" name="currentHIVRegimen" type="java.lang.String"/>
+        <property column="regimenOne" name="regimenOne" type="java.lang.String"/>
+        <property column="regimenOneValue" name="regimenOneValue" type="java.lang.String"/>
+        <property column="regimenTwo" name="regimenTwo" type="java.lang.String"/>
+
+        <property column="regimenTwoValue" name="regimenTwoValue" type="java.lang.String"/>
+        <property column="regimenThree" name="regimenThree" type="java.lang.String"/>
+        <property column="regimenThreeValue" name="regimenThreeValue" type="java.lang.String"/>
+        <property column="regimenFour" name="regimenFour" type="java.lang.String"/>
+        <property column="regimenFourValue" name="regimenFourValue" type="java.lang.String"/>
+        <property column="tbTreatment" name="tbTreatment" type="java.lang.String"/>
+
+        <property column="pcp" name="pcp" type="java.lang.String"/>
+
+        <property column="crypto" name="crypto" type="java.lang.String"/>
+
+        <property column="otherOI" name="otherOI" type="java.lang.String"/>
+
+        <property column="timeStamp" name="timeStampval" />
+
+	    <many-to-one name="provider"  column="providersId" property-ref="uuid" />
+        <many-to-one name="peerPatient"  column="peerPatientId" property-ref="uuid" />
+
+
+	    <many-to-one name="creator" class="org.openmrs.User" column="creator" not-null="true"/>
+
+        <property name="dateCreated" type="java.util.Date" column="date_created" not-null="true"/>
+
+        <property name="voided" type="boolean" not-null="true"/>
+
+        <many-to-one name="voidedBy" class="org.openmrs.User" column="voided_by"/>
+
+        <property name="dateVoided" type="java.util.Date" column="date_voided"/>
+
+        <property name="voidReason" type="java.lang.String" column="void_reason" length="255"/>
+
+        <many-to-one name="changedBy" class="org.openmrs.User" column="changed_by" />
+
+        <property name="dateChanged" type="java.util.Date" column="date_changed" length="19" />
+
+        <property name="uuid" type="string" length="38" not-null="true" unique="true"/>
+
+    </class>
+
+</hibernate-mapping>
